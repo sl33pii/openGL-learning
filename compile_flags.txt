@@ -1,0 +1,14 @@
+/opt/homebrew/opt/llvm/bin/clang
+-std=gnu2x
+-Wall
+-Wextra
+-Wpedantic
+-Wno-gnu
+-Wno-unused-parameter
+-Wno-fixed-enum-extension
+-DPLATFORM_OSX
+-iquotesrc
+-I/opt/homebrew/include
+-L/opt/homebrew/lib
+-lSDL2 
+-DCLANGD
