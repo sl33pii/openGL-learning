@@ -1,27 +1,3 @@
-# A simple Makefile for compiling small SDL projects
-
-# # generate names of object files
-# OBJS := $(SRCS:.c=.o)
-
-# # name of executable
-# EXEC := game
-
-# # default recipe
-# all: $(EXEC)
-
-# recipe for building the final executable
-# $(EXEC): $(OBJS) $(HDRS) Makefile
-# 	$(CC) -o $@ $(OBJS) $(CFLAGS)
-
-# recipe for building object files
-#$(OBJS): $(@:.o=.c) $(HDRS) Makefile
-#	$(CC) -o $@ $(@:.o=.c) -c $(CFLAGS)
-
-# recipe to clean the workspace
-# clean:
-# 	rm -f $(EXEC) $(OBJS)
-
-# .PHONY: all clean
 CC = clang
 LD = $(shell brew --prefix llvm)/bin/clang
 CCFLAGS =
@@ -60,7 +36,7 @@ CCFLAGS += -Wpedantic
 CCFLAGS += -Wno-unused-parameter
 CCFLAGS += -Wno-gnu
 CCFLAGS += -Wno-fixed-enum-extension
-CCFLAGS += -I/opt/homebrew/include -L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/lib -lSDL2 
+CCFLAGS += -I/opt/homebrew/include -L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/lib -lSDL2 -lSDL2_image -lm
 CXXFLAGS= $(CCFLAGS)
 
 CCFLAGS += $(shell sdl2-config --cflags)
