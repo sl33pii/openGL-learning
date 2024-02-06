@@ -1,0 +1,3 @@
+[submodule "lib/C-Personal-Utils"]
+	path = lib/C-Personal-Utils
+	url = git@github.com:mopeps/C-Personal-Utils.git
