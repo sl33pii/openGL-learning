@@ -37,6 +37,7 @@ CCFLAGS += -Wno-unused-parameter
 CCFLAGS += -Wno-gnu
 CCFLAGS += -Wno-fixed-enum-extension
 CCFLAGS += -I/opt/homebrew/include -L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/lib -lSDL2 -lSDL2_image -lm
+CCFLAGS += -I./lib/C-Personal-Utils
 CXXFLAGS= $(CCFLAGS)
 
 CCFLAGS += $(shell sdl2-config --cflags)
