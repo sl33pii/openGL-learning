@@ -5,16 +5,19 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const exe = b.addExecutable(.{ .name = "hello", .optimize = optimization, .target = target });
     exe.linkLibC();
-    exe.addCSourceFiles(.{ .files = &.{"src/main.c"}, .flags = &.{ "-std=gnu2x", "-O2", "-Wall", "-Wextra", "-Wpedantic", "-Wno-unused-parameter", "-Wno-gnu", "-Wno-fixed-enum-extension" } });
+    exe.addCSourceFiles(.{ .files = &.{"src/main.c", "src/engine/render.c", "src/engine/render_init.c", "src/io/io.c", "src/global_state.c", "src/engine/render_util.c"}, .flags = &.{ "-std=gnu2x", "-O2", "-Wall", "-Wextra", "-Wpedantic", "-Wno-unused-parameter", "-Wno-gnu", "-Wno-fixed-enum-extension" } });
     exe.addIncludePath(.{ .path = "lib/" });
     exe.linkSystemLibrary("SDL2");
+    exe.linkFramework("OpenGL");
     exe.linkSystemLibrary("SDL2_image");
+    exe.linkSystemLibrary("cglm");
     exe.linkSystemLibrary("m");
     b.installArtifact(exe);
 
     // This *creates* a Run step in the build graph, to be executed when another
     // step is evaluated that depends on it. The next line below will establish
     // such a dependency.
+
     const run_cmd = b.addRunArtifact(exe);
 
     // By making the run step depend on the install step, it will be run from the
