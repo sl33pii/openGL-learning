@@ -1,5 +1,6 @@
 #include <OpenGL/OpenGL.h>
 #include <SDL2/SDL.h>
+#include <math.h>
 
 #include "SDL2/SDL_video.h"
 #include "render.h"
@@ -46,23 +47,27 @@ void render_init_shaders(Render_State_Internal *state) {
     glUseProgram(state->shader_default);
 }
 
-void render_init_color_texture(u32 *texture) {
-    glGenTextures(1, texture);
-    glBindTexture(GL_TEXTURE_2D, *texture);
-    u8 solid_white[4] = {255, 255, 255, 255};
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, solid_white);
+void render_init_color_texture(u32 *texture, Render_State_Internal *state) {
+    /* glGenTextures(1, texture); */
+    /* glBindTexture(GL_TEXTURE_2D, *texture); */
+    /* u8 solid_white[4] = {255, 255, 255, 255}; */
+    /* glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, solid_white); */
 
-    glBindTexture(GL_TEXTURE_2D, 0);
+    /* glBindTexture(GL_TEXTURE_2D, 0); */
+    /* f32 timeValue = glfwGetTime(); */
+    /* f32 greenValue = (sin(timeValue) / 2.0f) + 0.5f; */
+    /* i32 vertexColorLocation = glGetUniformLocation(state->shader_default,"vertexColor"); */
+    /* glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f); */
 }
 
 
 void render_init_quad(u32 *vao, u32 *vbo, u32 *ebo) {
     //     x,    y, z, u, v
     float vertices[] = {
-        0.5f, 0.5f, 0.0f, // top right  
-        0.5f, -0.5f, 0.0f, // bottom right 
-         -0.5f, -0.5f, 0.0f, // bottom left 
-         -0.5f,  0.5f, 0.0f  // top left
+        0.5f, 0.5f, 0.0f,0.5f, 0.0f, 0.0f, // top right  
+        0.5f, -0.5f, 0.0f,0.0f, 0.5f, 0.0f, // bottom right 
+         -0.5f, -0.5f, 0.0f,0.0f, 0.0f, 0.5f, // bottom left 
+         -0.5f,  0.5f, 0.0f, 0.5f, 0.5f, 0.5f  // top left
     };
 
     u32 indices[] = {
@@ -83,8 +88,11 @@ void render_init_quad(u32 *vao, u32 *vbo, u32 *ebo) {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// x, y, z
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(f32), (void*) 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*) 0);
     glEnableVertexAttribArray(0);
+    //colors
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(f32), (void*) (3 * sizeof(f32)));
+    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo);
 

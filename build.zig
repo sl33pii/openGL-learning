@@ -9,6 +9,7 @@ pub fn build(b: *std.Build) void {
     exe.addIncludePath(.{ .path = "lib/" });
     exe.linkSystemLibrary("SDL2");
     exe.linkFramework("OpenGL");
+    exe.linkSystemLibrary("glfw3");
     exe.linkSystemLibrary("SDL2_image");
     exe.linkSystemLibrary("cglm");
     exe.linkSystemLibrary("m");

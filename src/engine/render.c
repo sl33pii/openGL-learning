@@ -11,14 +11,14 @@ void render_init() {
 
     global.render.window = render_init_window(global.render.width, global.render.height);
    glViewport(0, 0, global.render.width, global.render.height);
-    render_init_quad(&state.vao_quad, &state.vbo_quad, &state.ebo_quad);
     render_init_shaders(&state);
-    render_init_color_texture(&state.texture_color);
+    render_init_color_texture(&state.texture_color, &state);
+    render_init_quad(&state.vao_quad, &state.vbo_quad, &state.ebo_quad);
 }
 
 void render_begin() {
-    glClearColor(0.08, 0.1, 0.1, 1);
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void render_end() {
