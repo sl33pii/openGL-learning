@@ -1,3 +1,4 @@
+#include <OpenGL/OpenGL.h>
 #include <SDL2/SDL.h>
 
 #include "SDL2/SDL_video.h"
@@ -58,26 +59,34 @@ void render_init_color_texture(u32 *texture) {
 void render_init_quad(u32 *vao, u32 *vbo, u32 *ebo) {
     //     x,    y, z, u, v
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f, // left  
-         0.5f, -0.5f, 0.0f, // right 
-         0.0f,  0.5f, 0.0f  // top   
-    }; 
+        0.5f, 0.5f, 0.0f, // top right  
+        0.5f, -0.5f, 0.0f, // bottom right 
+         -0.5f, -0.5f, 0.0f, // bottom left 
+         -0.5f,  0.5f, 0.0f  // top left
+    };
+
+    u32 indices[] = {
+      0, 1, 3, // first triangle
+      1, 2, 3 // second triangle
+    };
 
     glGenVertexArrays(1, vao);
     glGenBuffers(1, vbo);
+    glGenBuffers(1, ebo);
 
     glBindVertexArray(*vao);
 
     glBindBuffer(GL_ARRAY_BUFFER, *vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
 	// x, y, z
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(f32), (void*) 0);
+    glEnableVertexAttribArray(0);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ebo);
 
     glBindVertexArray(0);
 }
