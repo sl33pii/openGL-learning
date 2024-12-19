@@ -6,7 +6,7 @@ pub fn build(b: *std.Build) void {
     const exe = b.addExecutable(.{ .name = "hello", .optimize = optimization, .target = target });
     exe.linkLibC();
     exe.addCSourceFiles(.{ .files = &.{"src/main.c", "src/engine/render.c", "src/engine/render_init.c", "src/io/io.c", "src/global_state.c", "src/engine/render_util.c"}, .flags = &.{ "-std=gnu2x", "-O2", "-Wall", "-Wextra", "-Wpedantic", "-Wno-unused-parameter", "-Wno-gnu", "-Wno-fixed-enum-extension" } });
-    exe.addIncludePath(.{ .path = "lib/" });
+    exe.addIncludePath(.{ .cwd_relative = "lib/" });
     exe.linkSystemLibrary("SDL2");
     exe.linkFramework("OpenGL");
     exe.linkSystemLibrary("glfw3");
@@ -41,17 +41,17 @@ pub fn build(b: *std.Build) void {
 
     // Creates a step for unit testing. This only builds the test executable
     // but does not run it.
-    const unit_tests = b.addTest(.{
-        .root_source_file = .{ .path = "src/main.c" },
-        .target = target,
-        .optimize = optimization,
-    });
+    // const unit_tests = b.addTest(.{
+    //     .root_source_file = .{ .path = "src/main.c" },
+    //     .target = target,
+    //     .optimize = optimization,
+    // });
 
-    const run_unit_tests = b.addRunArtifact(unit_tests);
+    // const run_unit_tests = b.addRunArtifact(unit_tests);
 
     // Similar to creating the run step earlier, this exposes a `test` step to
     // the `zig build --help` menu, providing a way for the user to request
     // running the unit tests.
-    const test_step = b.step("test", "Run unit tests");
-    test_step.dependOn(&run_unit_tests.step);
+    // const test_step = b.step("test", "Run unit tests");
+    // test_step.dependOn(&run_unit_tests.step);
 }

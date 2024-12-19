@@ -64,14 +64,14 @@ void render_init_color_texture(u32 *texture, Render_State_Internal *state) {
 void render_init_quad(u32 *vao, u32 *vbo, u32 *ebo) {
     //     x,    y, z, u, v
     float vertices[] = {
-        0.5f, 0.5f, 0.0f,0.5f, 0.0f, 0.0f, // top right  
+        0.5f, 0.5f, 0.0f,0.5f, 0.0f, 0.0f, // top right 
         0.5f, -0.5f, 0.0f,0.0f, 0.5f, 0.0f, // bottom right 
          -0.5f, -0.5f, 0.0f,0.0f, 0.0f, 0.5f, // bottom left 
          -0.5f,  0.5f, 0.0f, 0.5f, 0.5f, 0.5f  // top left
     };
 
     u32 indices[] = {
-      0, 1, 3, // first triangle
+      0, 2, 3, // first triangle
       1, 2, 3 // second triangle
     };
 
